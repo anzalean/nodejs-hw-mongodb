@@ -1,20 +1,12 @@
-import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
-import { env } from '../utils/env.js';
+export function env(name, defaultValue) {
+  const value = process.env[name];
+  console.log(value);
 
-export const initMongoDB = async () => {
-  try {
-    const user = env('MONGODB_USER');
-    const pwd = env('MONGODB_PASSWORD');
-    const url = env('MONGODB_URL');
-    const db = env('MONGODB_DB');
+  if (value) return value;
+  if (defaultValue) return defaultValue;
 
-    await mongoose.connect(
-      `mongodb+srv://${user}:${pwd}@${url}/${db}?retryWrites=true&w=majority`,
-    );
-    console.log('Mongo connection successfully established!');
-  } catch (e) {
-    console.log('Error while setting up mongo connection', e);
-    throw e;
-  }
-};
+  throw new Error(`Missing: process.env['${name}']`);
+}
