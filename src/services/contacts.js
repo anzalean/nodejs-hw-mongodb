@@ -1,27 +1,15 @@
-const contacts = []; 
+import { ContactsCollection } from '../db/models/contact.js';
 
-export const contactsService = {
-  getAllContacts: async () => contacts,
+export const getAllContacts = () => ContactsCollection.find();
 
-  getContactById: async (id) => contacts.find((c) => c.id === id),
+export const getContactById = (contactId) =>
+  ContactsCollection.findById(contactId);
 
-  createContact: async (data) => {
-    const newContact = { id: Date.now().toString(), ...data };
-    contacts.push(newContact);
-    return newContact;
-  },
+export const postContact = (contactData) =>
+  ContactsCollection.create(contactData);
 
-  updateContact: async (id, data) => {
-    const index = contacts.findIndex((c) => c.id === id);
-    if (index === -1) return null;
-    contacts[index] = { ...contacts[index], ...data };
-    return contacts[index];
-  },
+export const deleteContact = (contactId) =>
+  ContactsCollection.findByIdAndDelete(contactId);
 
-  deleteContact: async (id) => {
-    const index = contacts.findIndex((c) => c.id === id);
-    if (index === -1) return null;
-    contacts.splice(index, 1);
-    return true;
-  },
-};
+export const patchContact = (contactId, contactData) =>
+  ContactsCollection.findByIdAndUpdate(contactId, contactData, { new: true });
