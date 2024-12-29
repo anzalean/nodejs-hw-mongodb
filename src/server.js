@@ -1,13 +1,17 @@
 import express from 'express';
-import contactsRouter from './routers/contacts.js';
+import router from './routers/index.js';
+import cors from 'cors';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import cookieParser from 'cookie-parser';
 
 export function setupServer() {
  const app = express();
-app.use(express.json());
+ app.use(express.json());
+ app.use(cors());
+ app.use(cookieParser());
 
-app.use(contactsRouter);
+app.use(router);
 
 app.use(notFoundHandler);
 
