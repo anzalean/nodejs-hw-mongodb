@@ -4,6 +4,7 @@ import cors from 'cors';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/index.js';
 
 export function setupServer() {
  const app = express();
@@ -16,6 +17,8 @@ app.use(router);
 app.use(notFoundHandler);
 
 app.use(errorHandler);
+
+app.use('/uploads', express.static(UPLOAD_DIR));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

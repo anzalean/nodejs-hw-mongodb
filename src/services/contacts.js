@@ -2,6 +2,7 @@ import { ContactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 
+
 export const getAllContacts = async ({ page, perPage, sortOrder = SORT_ORDER.ASC,
   sortBy = '_id', }) => {
   const limit = perPage;
