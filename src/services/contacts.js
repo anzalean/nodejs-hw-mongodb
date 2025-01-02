@@ -2,7 +2,7 @@ import { ContactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 
-export const getAllContacts = async ({ page, perPage, sortOrder = SORT_ORDER.ASC,
+export const getAllContacts = async ({userId, page, perPage, sortOrder = SORT_ORDER.ASC,
   sortBy = '_id', }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
@@ -23,14 +23,16 @@ export const getAllContacts = async ({ page, perPage, sortOrder = SORT_ORDER.ASC
   };
 };
 
-export const getContactById = (contactId) =>
-  ContactsCollection.findById(contactId);
+export const getContactById = (contactId, userId) =>
+  ContactsCollection.findById({ _id: contactId, userId });
 
 export const postContact = (contactData) =>
   ContactsCollection.create(contactData);
 
-export const deleteContact = (contactId) =>
-  ContactsCollection.findByIdAndDelete(contactId);
+export const deleteContact = (contactId, userId) =>
+  ContactsCollection.findByIdAndDelete( {_id: contactId, userId });
 
-export const patchContact = (contactId, contactData) =>
-  ContactsCollection.findByIdAndUpdate(contactId, contactData, { new: true });
+export const patchContact = (contactId, userId, contactData) =>
+  ContactsCollection.findByIdAndUpdate({ _id: contactId, userId }, contactData, {
+    new: true,
+  });
