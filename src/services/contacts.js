@@ -24,15 +24,15 @@ export const getAllContacts = async ({userId, page, perPage, sortOrder = SORT_OR
 };
 
 export const getContactById = (contactId, userId) =>
-  ContactsCollection.findById({ _id: contactId, userId });
+  ContactsCollection.findOne({ _id: contactId, userId });
 
 export const postContact = (contactData) =>
   ContactsCollection.create(contactData);
 
-export const deleteContact = (contactId, userId) =>
-  ContactsCollection.findByIdAndDelete( {_id: contactId, userId });
-
 export const patchContact = (contactId, userId, contactData) =>
-  ContactsCollection.findByIdAndUpdate({ _id: contactId, userId }, contactData, {
+  ContactsCollection.findOneAndUpdate({ _id: contactId, userId }, contactData, {
     new: true,
   });
+
+export const deleteContact = (contactId, userId) =>
+  ContactsCollection.findOneAndDelete({ _id: contactId, userId });
