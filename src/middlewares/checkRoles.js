@@ -1,7 +1,7 @@
 import createHttpError from 'http-errors';
 
-import { ContactsCollection } from '../db/models/contact.js';
-import { ROLES } from '../constants/index.js';
+import { User } from '../db/models/contact.js';
+import { ROLES } from '../constants/constants.js';
 
 export const checkRoles =
   (...roles) =>
@@ -25,7 +25,7 @@ export const checkRoles =
         return;
       }
 
-      const contact = await ContactsCollection.findOne({
+      const contact = await User.findOne({
         _id: contactId,
         userId: user._id,
       });

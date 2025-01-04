@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { ROLES } from '../../constants/index.js';
+import { ROLES } from '../../constants/constants.js';
 
 const usersSchema = new Schema(
   {
@@ -21,4 +21,4 @@ usersSchema.methods.toJSON = function () {
   return obj;
 };
 
-export const UsersCollection = model('users', usersSchema);
+export const User = model('users', usersSchema);
